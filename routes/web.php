@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompositionTitleController;
 use App\Http\Controllers\PerformanceController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,20 +29,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/community/create', [CommunityController::class, 'create'])->name('create_community');
     Route::post('/community', [CommunityController::class, 'store'])->name('store_community');
     Route::get('/community/{community}', [CommunityController::class, 'index'])->name('performances');
-    Route::post('/practicenote/performance', [PerformanceController::class, 'store'])->name('upload_performance');
-    Route::post('/practicenote/performance/{performance}', [PerformanceController::class, 'update'])->name('update_performance');
 });
 
 /*practicenote*/
 Route::middleware('auth')->group(function () {
     Route::get('/practicenote', [UserController::class, 'compositionTitleIndex'])->name('practicenote');
+    Route::delete('/practicenote/{composition_title}', [CompositionTitleController::class, 'delete'])->name('delete_composition_title');
     Route::get('/practicenote/{composition_title}', [CompositionTitleController::class, 'index'])->name('performances');
     Route::post('/practicenote/performance', [PerformanceController::class, 'store'])->name('upload_performance');
     Route::get('/practicenote/performance/{performance}/edit', [PerformanceController::class, 'edit'])->name('edit_performance');
     Route::get('/practicenote/performance/{performance}', [PerformanceController::class, 'show'])->name('show_performance');
     Route::put('/practicenote/performance/{performance}', [PerformanceController::class, 'update']);
     Route::post('/practicenote', [CompositionTitleController::class, 'store'])->name('save_composition_title');
-    Route::post('/practicenote/performance/{feedback}', [PerformanceController::class, 'sendComment'])->name('comment');
+    Route::post('/practicenote/performance/feedback', [FeedbackController::class, 'sendComment'])->name('feedback');
 });
 
 Route::middleware('auth')->group(function () {

@@ -17,7 +17,7 @@
     <x-modal name="comment"  focusable>
         <div class=" sm:justify-center items-center px-10">
             <h2>Upload performance</h2>
-        <form method="POST" action="/practicenote/performance/{{$performance}}">
+        <form method="POST" action="/practicenote/performance/feedback">
             @csrf
             
             <!-- Comment -->
@@ -25,6 +25,10 @@
                 <x-input-label for="comment" :value="__('Comment')" class="mt-2" />
                 <textarea  id="comment" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"  name="feedback[comment]"  required autofocus autocomplete="comment" ></textarea>
             </div>
+            
+            <!-- performance_id-->
+            <input type="hidden" name="feedback[performance_id]" value="{{ $performance->id }}">
+
             
             <!-- upload button -->
             <div class="flex items-center justify-end mt-4 mb-7">
@@ -51,11 +55,13 @@
                             非公開
                         @endif
                     </p> 
-                    <a href="/practicenote/performance/{{$performance->id}}/edit">
-                        <x-secondary-button>
-                            編集
-                        </x-secondary-button>
-                    </a>
+                    @if($performance->user_id === auth()->user()->id)
+                        <a href="/practicenote/performance/{{$performance->id}}/edit">
+                            <x-secondary-button>
+                                編集
+                            </x-secondary-button>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

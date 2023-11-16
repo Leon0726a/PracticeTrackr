@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Performance;
-use App\Models\Feedback;
 use Cloudinary;
 
 class PerformanceController extends Controller
@@ -13,7 +12,9 @@ class PerformanceController extends Controller
     {
         $input = $request['performance'];
         $audio_url = Cloudinary::uploadVideo($request->file('audio')->getRealPath())->getSecurePath();
+        $public_id=Cloudinary::getPublicId([$audio_url]);
         $input += ['url' => $audio_url];
+        $input += ['public_id' => $public_id];
         $input += ['user_id' => $request->user()->id];
         $performance->fill($input)->save();
         return redirect()->route('performances',['composition_title' =>$input['composition_title_id']]);
@@ -24,7 +25,10 @@ class PerformanceController extends Controller
         
         $input = $request['performance'];
         $performance->fill($input)->save();
-        return redirect()->route('performances',['composition_title' =>$input['composition_title_id']]);
+        return redirect()->route('show_performance',['performance' => $performance,
+                                                     'composition_title' =>$input['composition_title_id'],
+                                                     'feedbacks' => $performance->feedbacks,
+                                                     ]);
     }
     
     public function edit(Performance $performance)
@@ -39,13 +43,5 @@ class PerformanceController extends Controller
                                                 'composition_title' =>$performance->compositionTitle->title,
                                                 'feedbacks' => $performance->feedbacks,
                                                 ]);
-    }
-    
-    public function sendComment(Request $request,Feedback $feedback)
-    {
-        $input = $request['feedback'];
-        $performance->fill($input)->save();
-        return redirect()->route('performances',['composition_title' =>$input['composition_title_id']]);
-        return view('performances.show')->with(['performance' => $performance,'composition_title' =>$performance->compositionTitle->title]);
     }
 }

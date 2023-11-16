@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('comment');
             $table->string('instrument');
             $table->string('url')->nullable();
-            $table->integer('duration');
+            $table->string('public_id')->nullable();
             $table->foreignId('composition_title_id')->constrained()->onDelete('cascade');
             $table->timestamps(); // created_at と updated_at カラム
         });
