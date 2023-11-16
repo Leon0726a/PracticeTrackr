@@ -19,6 +19,7 @@ class Performance extends Model
         'comment',
         'instrument',
         'url',
+        'public_id',
         'composition_title_id',
         ];
         

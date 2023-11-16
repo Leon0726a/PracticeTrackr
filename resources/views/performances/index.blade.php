@@ -4,13 +4,18 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $composition_title->title }}
             </h2>
-            
-            <div
-                x-data=""
-            >
-                <x-secondary-button x-on:click.prevent="$dispatch('open-modal', 'upload-performance')">
+           
+            <div>
+               
+                <x-secondary-button  x-data="" x-on:click.prevent="$dispatch('open-modal', 'upload-performance')">
                     アップロード
                 </x-secondary-button>
+                
+                <x-danger-button
+                    x-data=""
+                    x-on:click.prevent="$dispatch('open-modal', 'confirm-composition-title-deletion')"
+                >タイトルを削除
+                </x-danger-button>
             </div>
             
         </div>
@@ -50,8 +55,7 @@
             </div>
             
             <!-- composition_title_id -->
-            <input id="composition_title_id" type="hidden" name="performance[composition_title_id]" >
-           
+            <input id="composition_title_id" type="hidden" value="{{$composition_title->id}}" name="performance[composition_title_id]" >
            
             <!-- upload button -->
             <div class="flex items-center justify-end mt-4 mb-7">
@@ -61,6 +65,29 @@
             </div>
         </form>
         </div>
+    </x-modal>
+    
+    <!-- タイトルを削除 -->
+    <x-modal name="confirm-composition-title-deletion"  focusable>
+        <form method="post" action="{{ route('delete_composition_title',['composition_title'=>$composition_title->id]) }}" class="p-6">
+            @csrf
+            @method('delete')
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{$composition_title->title}}を削除しますか
+            </h2>
+
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-danger-button class="ml-3">
+                    {{ __('Delete') }}
+                </x-danger-button>
+            </div>
+        </form>
     </x-modal>
     
     @foreach($performances as $performance)
