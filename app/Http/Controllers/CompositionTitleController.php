@@ -46,7 +46,7 @@ class CompositionTitleController extends Controller
         // CompositionTitleを削除
         $composition_title->delete();
     
-        return redirect('/community');
+        return redirect('/practicenote');
     }
 
 }
