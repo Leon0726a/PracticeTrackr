@@ -39,12 +39,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg"> 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 my-3">
-                    @foreach($titles as $title)
-                        <a href="/practicenote/{{$title->id}}" class="group p-4 border border-gray-300 rounded-md hover:bg-sky-500 hover:ring-sky-500">
-                            <h4 class="group-hover:text-white">{{$title->title}}</h4>
+                    @forelse($titles as $title)
+                        <a href="/practicenote/{{$title->id}}" class="group p-4 border border-gray-200 rounded-md hover:bg-gray-100 ">
+                            <h4>{{$title->title}}</h4>
                         </a>
-                    @endforeach
+                    @empty
                 </div>
+                <div class="flex flex-col items-center leading-relaxed mt-6 mb-2">
+                    <p class="mt-8 text-mdlg">ここでは楽曲ごとの記録を残せます。</p>
+                    <p class="mt-6 text-sm text-main-700">右上のボタンから楽曲タイトルを作成しましょう。</p>
+                </div>
+                    @endforelse
             </div>
         </div>
     </div>

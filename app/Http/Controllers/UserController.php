@@ -14,6 +14,6 @@ class UserController extends Controller
         
         public function communityIndex(User $user)
     {
-        return view('community.index')->with(['communities' => $user->getCommunityPaginateByLimit()]);
+        return view('communities.index')->with(['communities' => $user->getCommunityPaginateByLimit()]);
     }
 }

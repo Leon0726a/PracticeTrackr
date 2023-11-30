@@ -25,10 +25,14 @@ Route::get('/', function () {
 
 /*cmmunity*/
 Route::middleware('auth')->group(function () {
-    Route::get('/community', [UserController::class, 'communityIndex'])->name('community');
-    Route::get('/community/create', [CommunityController::class, 'create'])->name('create_community');
-    Route::post('/community', [CommunityController::class, 'store'])->name('store_community');
-    Route::get('/community/{community}', [CommunityController::class, 'index'])->name('performances');
+    Route::get('/communities', [UserController::class, 'communityIndex'])->name('community');
+    Route::get('/communities/create', [CommunityController::class, 'create'])->name('communities.create');
+    Route::post('/communities', [CommunityController::class, 'store'])->name('communities.store');
+    Route::post('/communities/search', [CommunityController::class, 'search'])->name('communities.search');
+    Route::get('/communities/{community}', [CommunityController::class, 'show'])->name('communities.show');
+    Route::post('/community/{community}/join', [CommunityController::class, 'joinCommunity'])->name('communities.join');
+    Route::post('/community/{community}/leave', [CommunityController::class, 'leave'])->name('communities.leave');
+    Route::post('/community/{community}/upload', [CommunityController::class, 'performanceStore'])->name('communities.upload_performance');
 });
 
 /*practicenote*/
