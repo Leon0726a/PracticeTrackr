@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('instrument');
             $table->string('url')->nullable();
             $table->string('public_id')->nullable();
-            $table->foreignId('composition_title_id')->constrained()->onDelete('cascade');
+            $table->foreignId('composition_title_id')->constrained()->onDelete('cascade')->nullable();
             $table->timestamps(); // created_at と updated_at カラム
         });
     }

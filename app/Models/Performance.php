@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\CompositionTitle;
 use App\Models\Feedback;
+use App\Models\Community;
 
 
 class Performance extends Model
@@ -31,7 +32,11 @@ class Performance extends Model
         return $this->hasMany(Feedback::class);
     }
     
-     public function compositionTitle(){
+    public function compositionTitle(){
         return $this->belongsTo(CompositionTitle::class);
+    }
+    
+    public function communities(){
+        return $this->belongsToMany(Community::class);
     }
 }

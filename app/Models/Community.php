@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Administrator;
+use App\Models\Performance;
 
 class Community extends Model
 {
@@ -23,5 +24,9 @@ class Community extends Model
     
     public function administrator(){
     return $this->hasOne(Administrator::class);
+    }
+    
+    public function performances(){
+        return $this->belongsToMany(Performance::class);
     }
 }

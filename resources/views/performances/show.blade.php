@@ -44,6 +44,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <div class="flex flex-col gap-4  p-4">
                     <h4>{{$performance->title}}</h4>
                     <audio controls controlslist="nodownload" class="group-hover:text-white" src="{{$performance->url}}"></audio>
                     <p>{{$performance->comment}}</p>
@@ -55,6 +56,7 @@
                             非公開
                         @endif
                     </p> 
+                    </div>
                     @if($performance->user_id === auth()->user()->id)
                         <a href="/practicenote/performance/{{$performance->id}}/edit">
                             <x-secondary-button>
@@ -69,15 +71,24 @@
     
     <!-- comment -->
     @foreach($feedbacks as $feedback)
-    <div class="py-4">
+    <div class="py-1">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                  {{$feedback->comment}}
-                  {{$feedback->user->name}}
+                <div class="flex flex-col gap-4  p-4">
+
+                    <span>{{$feedback->user->name}}</span>
+            
+                    <div>
+                       {{$feedback->comment}}
+                    </div>
+            
+                    <span>{{$feedback->created_at}}</span>
+                    
                 </div>
             </div>
         </div>
     </div>
+    
+    
     @endforeach
 </x-app-layout>
